@@ -73,6 +73,14 @@ You will be prompted to either choose a single target or multiple targets. The t
 - **final.txt**: The filtered list of unique URLs suspected of being vulnerable to XSS attacks.
 - **dalfox_results.txt**: The results after running Dalfox with a custom payload to test for XSS vulnerabilities.
 
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-name`).
+3. Make your changes and commit (`git commit -am 'Add feature'`).
+4. Push to the branch (`git push origin feature-name`).
+5. Create a new Pull Request.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
