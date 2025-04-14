@@ -6,6 +6,8 @@
 
 This tool allows for scanning a single target or multiple targets concurrently using dynamic threading. It processes results and identifies unique URLs that might be vulnerable to XSS attacks. The tool then runs **Dalfox** with custom payloads to further investigate these vulnerabilities.
 
+## Change Costum payload on line 81
+
 ## Features
 
 - **Automated XSS scanning** using popular tools and techniques.
