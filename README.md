@@ -1,185 +1,140 @@
-# XSStunner v2.0
+# XSSFvck - Advanced XSS Scanning Tool
 
-## 🔥 Advanced XSS Scanning & Detection Tool
+## Overview
+**XSSFvck** is a powerful, automated tool designed for detecting **Cross-Site Scripting (XSS)** vulnerabilities in web applications. It integrates multiple open-source tools and custom techniques to perform comprehensive scanning, including **DOM-based XSS detection**, **payload mutation**, and **HTTP parameter pollution testing**. With features like parallel processing, smart filtering, and detailed reporting, XSSFvck is ideal for security researchers and penetration testers.
 
-XSStunner is a comprehensive, automated tool designed to detect cross-site scripting (XSS) vulnerabilities in web applications with minimal false positives. It combines multiple reconnaissance techniques with intelligent payload testing to find exploitable XSS vectors.
+## Features
+- **DOM XSS Detection**: Identifies potential DOM-based XSS vulnerabilities by analyzing JavaScript patterns.
+- **Payload Mutation**: Includes a variety of XSS payloads (basic, AngularJS, Vue.js, filter bypass).
+- **Smart Filtering**: Uses `gf`, `uro`, `Gxss`, and `kxss` to refine potential XSS vectors.
+- **HTTP Parameter Pollution Testing**: Injects payloads into URL parameters to test for vulnerabilities.
+- **Custom Header Testing**: Checks for XSS via custom HTTP headers.
+- **Asynchronous Discord Notifications**: Sends real-time alerts for detected vulnerabilities via Discord webhooks.
+- **Comprehensive Reporting**: Generates JSON, text, and HTML reports for easy analysis.
+- **Multi-Target Support**: Scans single targets or multiple targets from a file.
+- **Parallel Processing**: Configurable thread counts for faster scanning.
 
-## ✨ Features
+## Requirements
+- **Python 3.6+**
+- **Python Packages**:
+  ```bash
+  pip install requests beautifulsoup4
+  ```
+- **External Tools** (automatically checked by the script):
+  - `gau`
+  - `gf`
+  - `uro`
+  - `Gxss`
+  - `kxss`
+  - `dalfox`
+  - `waybackurls`
+  - `hakrawler`
 
-- **Advanced Crawling**: Uses multiple tools (gau, waybackurls, hakrawler) to discover hidden endpoints
-- **Smart Filtering**: Multi-stage filtering process to identify potential XSS vectors
-- **DOM XSS Detection**: Identifies vulnerable JavaScript patterns in the DOM
-- **Parameter Pollution Testing**: Tests for HTTP parameter pollution vulnerabilities
-- **Payload Mutation**: Intelligently mutates XSS payloads to bypass filters
-- **Custom Header Testing**: Tests for XSS via HTTP headers
-- **Comprehensive Reporting**: Generates JSON, plain text, and HTML reports
-- **Discord Integration**: Real-time vulnerability notifications via Discord webhooks
-- **Multi-Threading**: Concurrent scanning for faster results
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/anonre/XSSFvck.git
+   cd XSSFvck
+   ```
 
-## 📋 Prerequisites
+2. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-XSStunner requires the following tools to be installed:
+3. Install external tools:
+   ```bash
+   GO111MODULE=on go install github.com/lc/gau/v2/cmd/gau@latest
+   GO111MODULE=on go install github.com/tomnomnom/gf@latest
+   pip install uro
+   GO111MODULE=on go install github.com/KathanP19/Gxss@latest
+   GO111MODULE=on go install github.com/Emoe/kxss@latest
+   GO111MODULE=on go install github.com/hahwul/dalfox/v2@latest
+   GO111MODULE=on go install github.com/tomnomnom/waybackurls@latest
+   GO111MODULE=on go install github.com/hakluke/hakrawler@latest
+   ```
 
-- [gau](https://github.com/lc/gau): `GO111MODULE=on go install github.com/lc/gau/v2/cmd/gau@latest`
-- [gf](https://github.com/tomnomnom/gf): `GO111MODULE=on go install github.com/tomnomnom/gf@latest`
-- [uro](https://github.com/s0md3v/uro): `pip install uro`
-- [Gxss](https://github.com/KathanP19/Gxss): `GO111MODULE=on go install github.com/KathanP19/Gxss@latest`
-- [kxss](https://github.com/Emoe/kxss): `GO111MODULE=on go install github.com/Emoe/kxss@latest`
-- [dalfox](https://github.com/hahwul/dalfox): `GO111MODULE=on go install github.com/hahwul/dalfox/v2@latest`
-- [waybackurls](https://github.com/tomnomnom/waybackurls): `GO111MODULE=on go install github.com/tomnomnom/waybackurls@latest`
-- [hakrawler](https://github.com/hakluke/hakrawler): `GO111MODULE=on go install github.com/hakluke/hakrawler@latest`
+4. (Optional) Configure Discord webhook for notifications:
+   Create a `config.json` file in the project root:
+   ```json
+   {
+       "discord_webhook_url": "https://discord.com/api/webhooks/your-webhook-url"
+   }
+   ```
 
-## 🔧 Installation
+## Usage
+Run XSSFvck with the following command-line options:
 
 ```bash
-# Clone the repository
-git clone https://github.com/anonre/xsstunner.git
-cd xsstunner
-
-# Make the script executable
-chmod +x xsstunner
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Run the tool
-./xsstunner -h
+python xssfuck.py [-h] [-t TARGET] [-l LIST] [-o OUTPUT] [-p PAYLOAD] [-T THREADS] [-v]
 ```
 
-## 📥 Dependencies
+### Options
+- `-t, --target`: Single target to scan (e.g., `example.com`).
+- `-l, --list`: File containing multiple targets (one per line).
+- `-o, --output`: Output directory for results (defaults to `results/<target>`).
+- `-p, --payload`: Custom XSS payload.
+- `-T, --threads`: Number of threads for parallel processing (default: 5).
 
-```
-requests
-beautifulsoup4
-urllib3
-pathlib
-```
+### Examples
+- Scan a single target:
+  ```bash
+  python xssfuck.py -t example.com -o results/example
+  ```
 
-## 💻 Usage
+- Scan multiple targets from a file:
+  ```bash
+  python xssfuck.py -l targets.txt -T 10
+  ```
 
-### Basic Usage
+- Use a custom payload:
+  ```bash
+  python xssfuck.py -t example.com -p '<script>alert("custom")</script>'
+  ```
 
-```bash
-# Scan a single target
-./xsstunner -t example.com
+## Output
+Results are saved in the specified output directory (or `results/<target>` by default):
+- `all_urls.txt`: Crawled URLs from the target.
+- `xss_filtered.txt`: Filtered URLs with potential XSS vectors.
+- `final_candidates.txt`: Final list of XSS candidates.
+- `final_results.json`: Raw JSON results from Dalfox.
+- `readable_results.txt`: Human-readable vulnerability report.
+- `XSSFvck.log`: Log file with detailed execution information.
 
-# Scan multiple targets from a file
-./xsstunner -l targets.txt
+## Example HTML Report
+The HTML report provides a clean, professional overview of findings:
+- Scan timestamp
+- List of vulnerabilities with URLs, payloads, and proof-of-concept details
+- Responsive design with hover effects for better readability
 
-# Scan with a custom output directory
-./xsstunner -t example.com -o my_results
+## Notes
+- **Responsible Use**: This tool is for **authorized security testing only**. Always obtain permission before scanning any target.
+- **SSL Warnings**: The tool disables SSL warnings (`verify=False`) for testing purposes. Use with caution.
+- **Dependencies**: Ensure all external tools are installed and accessible in your system's PATH.
+- **Discord Notifications**: Configure a Discord webhook in `config.json` for real-time alerts.
 
-# Use a custom XSS payload
-./xsstunner -t example.com -p '"><img src=x onerror=confirm(1)>'
+## Contributing
+Contributions are welcome! To contribute:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -m 'Add your feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a pull request.
 
-# Increase thread count for faster scanning
-./xsstunner -t example.com -T 10
+Please submit bug reports or feature requests via [GitHub Issues](https://github.com/anonre/XSSFvck/issues).
 
-# Enable verbose output
-./xsstunner -t example.com -v
-```
+## License
+This project is licensed under the [MIT License](LICENSE).
 
-### Command Line Arguments
+## Disclaimer
+XSSFvck is provided for **educational and ethical security testing purposes only**. The author is not responsible for any misuse or damage caused by this tool.
 
-| Option | Description |
-|--------|-------------|
-| `-t, --target` | Single target to scan (e.g., example.com) |
-| `-l, --list` | File containing multiple targets |
-| `-o, --output` | Output directory for results |
-| `-p, --payload` | Custom XSS payload |
-| `-T, --threads` | Number of threads to use (default: 5) |
-| `-v, --verbose` | Enable verbose output |
+## Acknowledgments
+- Built with inspiration from the security community.
+- Leverages open-source tools: `gau`, `gf`, `uro`, `Gxss`, `kxss`, `dalfox`, `waybackurls`, `hakrawler`.
 
-## 🛠️ Discord Integration
+---
 
-XSStunner can send real-time notifications when vulnerabilities are discovered. To enable this feature:
-
-1. Create a `config.json` file in the XSStunner directory
-2. Add your Discord webhook URL:
-
-```json
-{
-    "discord_webhook_url": "https://discord.com/api/webhooks/your-webhook-url"
-}
-```
-
-## 📊 Results Structure
-
-After scanning, results will be saved in the `results/` directory (or custom output directory if specified):
-
-```
-results/example.com_/
-├── all_urls.txt            # All discovered URLs
-├── crawled_urls.txt        # Raw crawler output
-├── dom_xss_candidates.txt  # Potential DOM XSS vulnerabilities
-├── final_candidates.txt    # Final XSS candidates
-├── final_results.json      # Detailed vulnerability data in JSON format
-├── gxss_output.txt         # Output from Gxss
-├── payloads.txt            # XSS payloads used in the scan
-├── processed_targets.txt   # Processed target URLs
-├── readable_results.txt    # Human-readable vulnerability report
-├── report.html             # HTML vulnerability report
-├── xss_filtered.txt        # Filtered XSS vectors
-├── xss_vectors.txt         # Potential XSS vectors
-└── xsstunner.log           # Scan log
-```
-
-## 📄 Sample Reports
-
-### Plain Text Report
-
-```
-XSStunner - Detailed Vulnerability Report
-=====================================
-
-Scan Date: 2025-04-24 12:30:45
-Total Vulnerabilities Found: 2
-
-Vulnerability #1
--------------------
-Target URL: https://example.com/search?q=test
-Payload: "><svg/onload=alert(1)>
-Proof of Concept: https://example.com/search?q=%22%3E%3Csvg/onload=alert(1)%3E
-
-Vulnerability #2
--------------------
-Target URL: https://example.com/profile?id=123
-Payload: "><img src=x onerror=alert(1)>
-Proof of Concept: https://example.com/profile?id=%22%3E%3Cimg%20src=x%20onerror=alert(1)%3E
-```
-
-### HTML Report
-
-The tool generates a comprehensive HTML report with detailed vulnerability information that can be easily shared with team members or clients.
-
-## 🔒 XSS Payloads
-
-XSStunner includes a variety of XSS payload types:
-
-- Basic payloads
-- AngularJS-specific payloads
-- Vue.js-specific payloads
-- DOM-based payloads
-- Filter bypass payloads
-- HTML5-specific payloads
-- Encoded payloads
-
-## ⚠️ Disclaimer
-
-This tool is intended for security professionals to test their own systems or systems they have permission to test. Always obtain proper authorization before scanning any website. The authors are not responsible for any misuse of this tool.
-
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👨‍💻 Author
-
-- **anonre** - *Initial work and enhancements*
-
-## 🙏 Acknowledgments
-
-- All the authors of the tools that XSStunner depends on
-- The security community for sharing techniques and payloads
-
-![image](https://github.com/user-attachments/assets/26fd9abd-7b5f-4f7a-a440-28f5d3690321)
+<p align="center">
+  <strong>Created by anonre</strong> | <a href="https://github.com/anonre/XSSFvck">Star us on GitHub! ⭐</a>
+</p>
