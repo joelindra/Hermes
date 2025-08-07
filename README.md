@@ -10,7 +10,7 @@
 - **HTTP Parameter Pollution Testing**: Injects payloads into URL parameters to test for vulnerabilities.
 - **Custom Header Testing**: Checks for XSS via custom HTTP headers.
 - **Asynchronous Discord Notifications**: Sends real-time alerts for detected vulnerabilities via Discord webhooks.
-- **Comprehensive Reporting**: Generates JSON, text, and HTML reports for easy analysis.
+- **Comprehensive Reporting**: Generates JSON, text reports for easy analysis.
 - **Multi-Target Support**: Scans single targets or multiple targets from a file.
 - **Parallel Processing**: Configurable thread counts for faster scanning.
 
