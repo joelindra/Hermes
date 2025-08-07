@@ -33,7 +33,7 @@ XSStunner requires the following tools to be installed:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/xsstunner.git
+git clone https://github.com/anonre/xsstunner.git
 cd xsstunner
 
 # Make the script executable
