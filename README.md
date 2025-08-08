@@ -5,7 +5,7 @@
 
 
 ## Overview
-**XSSFvck** is a powerful, automated tool designed for detecting **Cross-Site Scripting (XSS)** vulnerabilities in web applications. It integrates multiple open-source tools and custom techniques to perform comprehensive scanning, including **DOM-based XSS detection**, **payload mutation**, and **HTTP parameter pollution testing**. With features like parallel processing, smart filtering, and detailed reporting, XSSFvck is ideal for security researchers and penetration testers.
+**Hermes** is a powerful, automated tool designed for detecting **Cross-Site Scripting (XSS)** vulnerabilities in web applications. It integrates multiple open-source tools and custom techniques to perform comprehensive scanning, including **DOM-based XSS detection**, **payload mutation**, and **HTTP parameter pollution testing**. With features like parallel processing, smart filtering, and detailed reporting, Hermes is ideal for security researchers and penetration testers.
 
 ## Features
 - **DOM XSS Detection**: Identifies potential DOM-based XSS vulnerabilities by analyzing JavaScript patterns.
@@ -37,8 +37,8 @@
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/anonre/XSSFvck.git
-   cd XSSFvck
+   git clone https://github.com/anonre/hermes.git
+   cd hermes
    ```
 
 2. Install Python dependencies:
@@ -67,7 +67,7 @@
    ```
 
 ## Usage
-Run XSSFvck with the following command-line options:
+Run Hermes with the following command-line options:
 
 ```bash
 python xssfuck.py [-h] [-t TARGET] [-l LIST] [-o OUTPUT] [-p PAYLOAD] [-T THREADS] [-v]
@@ -103,7 +103,7 @@ Results are saved in the specified output directory (or `results/<target>` by de
 - `final_candidates.txt`: Final list of XSS candidates.
 - `final_results.json`: Raw JSON results from Dalfox.
 - `readable_results.txt`: Human-readable vulnerability report.
-- `XSSFvck.log`: Log file with detailed execution information.
+- `hermes.log`: Log file with detailed execution information.
 
 ## Example HTML Report
 The HTML report provides a clean, professional overview of findings:
@@ -125,13 +125,13 @@ Contributions are welcome! To contribute:
 4. Push to the branch (`git push origin feature/your-feature`).
 5. Open a pull request.
 
-Please submit bug reports or feature requests via [GitHub Issues](https://github.com/anonre/XSSFvck/issues).
+Please submit bug reports or feature requests via [GitHub Issues](https://github.com/anonre/hermes/issues).
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
 
 ## Disclaimer
-XSSFvck is provided for **educational and ethical security testing purposes only**. The author is not responsible for any misuse or damage caused by this tool.
+Hermes is provided for **educational and ethical security testing purposes only**. The author is not responsible for any misuse or damage caused by this tool.
 
 ## Acknowledgments
 - Built with inspiration from the security community.
@@ -140,5 +140,5 @@ XSSFvck is provided for **educational and ethical security testing purposes only
 ---
 
 <p align="center">
-  <strong>Created by anonre</strong> | <a href="https://github.com/anonre/XSSFvck">Star us on GitHub! ⭐</a>
+  <strong>Created by anonre</strong> | <a href="https://github.com/anonre/hermes">Star us on GitHub! ⭐</a>
 </p>
