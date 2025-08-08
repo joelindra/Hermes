@@ -38,7 +38,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-logger = logging.getLogger("XSSFvck")
+logger = logging.getLogger("hermes")
 
 # XSS payloads
 XSS_PAYLOADS = [
@@ -98,7 +98,7 @@ def banner():
     """Display tool banner"""
     print(f"""
 {CYAN}╔════════════════════════════════════════════════╗
-║   {WHITE}XSSFvck v0.0 {CYAN}- {GREEN}Advanced XSS Scanning Tool{CYAN}                
+║   {WHITE}Hermes v0.0 {CYAN}- {GREEN}Advanced XSS Scanning Tool{CYAN}                
 ║                                                              
 ║       {RED}Created by anonre {CYAN}| {RED}Fvck3r Version{CYAN}                     
 ║                                                              
@@ -362,7 +362,7 @@ def process_results(results_json_path, output_dir):
                         continue
         
         with safe_open_w(f"{output_dir}/readable_results.txt") as f:
-            f.write("XSSFvck - Detailed Vulnerability Report\n")
+            f.write("Hermes - Detailed Vulnerability Report\n")
             f.write("=" * 37 + "\n\n")
             f.write(f"Scan Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write(f"Total Vulnerabilities Found: {len(results)}\n\n")
@@ -390,7 +390,7 @@ def create_empty_results(output_dir):
     try:
         os.makedirs(output_dir, exist_ok=True)
         with safe_open_w(f"{output_dir}/readable_results.txt") as f:
-            f.write("XSSFvck - Vulnerability Report\n")
+            f.write("Hermes - Vulnerability Report\n")
             f.write("="*30 + "\n\n")
             f.write(f"Scan Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write("Scan failed or no vulnerabilities were found.\n")
@@ -402,7 +402,7 @@ def process_single_target(target, output_dir, threads, custom_payload):
     try:
         os.makedirs(output_dir, exist_ok=True)
         
-        file_handler = logging.FileHandler(f"{output_dir}/XSSFvck.log")
+        file_handler = logging.FileHandler(f"{output_dir}/hermes.log")
         formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
@@ -434,7 +434,7 @@ def main():
         banner()
         
         parser = argparse.ArgumentParser(
-            description=f"{CYAN}XSSFvck{RESET} - Advanced XSS Scanning Tool",
+            description=f"{CYAN}Hermes{RESET} - Advanced XSS Scanning Tool",
             formatter_class=argparse.RawDescriptionHelpFormatter
         )
         
