@@ -1,4 +1,4 @@
-# XSSFvck - Advanced XSS Scanning Tool
+# Hermes - Advanced XSS Scanning Tool
 
 <img width="1159" height="366" alt="image" src="https://github.com/user-attachments/assets/3a5dbdc3-ab9f-4e46-b8fd-4c7f88c6cbc0" />
 <img width="1893" height="105" alt="image" src="https://github.com/user-attachments/assets/465b0d2b-523a-4c83-868b-f5661b398db7" />
