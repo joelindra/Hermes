@@ -70,7 +70,7 @@
 Run Hermes with the following command-line options:
 
 ```bash
-python xssfuck.py [-h] [-t TARGET] [-l LIST] [-o OUTPUT] [-p PAYLOAD] [-T THREADS] [-v]
+python hermes.py [-h] [-t TARGET] [-l LIST] [-o OUTPUT] [-p PAYLOAD] [-T THREADS] [-v]
 ```
 
 ### Options
@@ -83,17 +83,17 @@ python xssfuck.py [-h] [-t TARGET] [-l LIST] [-o OUTPUT] [-p PAYLOAD] [-T THREAD
 ### Examples
 - Scan a single target:
   ```bash
-  python xssfuck.py -t example.com -o results/example
+  python hermes.py -t example.com -o results/example
   ```
 
 - Scan multiple targets from a file:
   ```bash
-  python xssfuck.py -l targets.txt -T 10
+  python hermes.py -l targets.txt -T 10
   ```
 
 - Use a custom payload:
   ```bash
-  python xssfuck.py -t example.com -p '<script>alert("custom")</script>'
+  python hermes.py -t example.com -p '<script>alert("custom")</script>'
   ```
 
 ## Output
