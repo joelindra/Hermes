@@ -1,8 +1,6 @@
 # Hermes - Advanced XSS Scanning Tool
 
-<img width="1159" height="366" alt="image" src="https://github.com/user-attachments/assets/3a5dbdc3-ab9f-4e46-b8fd-4c7f88c6cbc0" />
-<img width="1893" height="105" alt="image" src="https://github.com/user-attachments/assets/465b0d2b-523a-4c83-868b-f5661b398db7" />
-
+<img width="250" height="407" alt="image" src="https://github.com/user-attachments/assets/64be4f47-aeee-4279-942b-89208a42898b" />
 
 ## Overview
 **Hermes** is a powerful, automated tool designed for detecting **Cross-Site Scripting (XSS)** vulnerabilities in web applications. It integrates multiple open-source tools and custom techniques to perform comprehensive scanning, including **DOM-based XSS detection**, **payload mutation**, and **HTTP parameter pollution testing**. With features like parallel processing, smart filtering, and detailed reporting, Hermes is ideal for security researchers and penetration testers.
@@ -143,4 +141,5 @@ Hermes is provided for **educational and ethical security testing purposes only*
   <strong>Created by anonre</strong> | <a href="https://github.com/anonre/hermes">Star us on GitHub! ⭐</a>
 </p>
 
-<img width="250" height="407" alt="image" src="https://github.com/user-attachments/assets/64be4f47-aeee-4279-942b-89208a42898b" />
+<img width="1159" height="366" alt="image" src="https://github.com/user-attachments/assets/3a5dbdc3-ab9f-4e46-b8fd-4c7f88c6cbc0" />
+<img width="1893" height="105" alt="image" src="https://github.com/user-attachments/assets/465b0d2b-523a-4c83-868b-f5661b398db7" />
